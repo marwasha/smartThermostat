@@ -1,6 +1,6 @@
 # MyProject
 
-A Particle project named MyProject
+A Particle project named smartThermostat
 
 ## Welcome to your project!
 
