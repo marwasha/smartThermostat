@@ -1,0 +1,2 @@
+void sensorsSetup();
+float readTemp();
