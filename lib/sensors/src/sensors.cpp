@@ -1,16 +1,11 @@
 #include "MCP9808.h"
 
-int DATA_PIN = D0;
-int CLOCK_PIN = D1;
-byte ADDRESS_TEMP = 0x18;
-MCP9808 tempSensor = MCP9808(ADDRESS_TEMP);
-
-void sensorsSetup() {
-  delay(500);
-  tempSensor.begin();
-  tempSensor.setResolution(MCP9808_SLOWEST);
+tempSensor::tempSensor(uint8_t offset) {
+  MCP9808 device = MCP9808(offset + MCP9808_DEFAULT_ADDRESS)
+  device.begin();
+  device.setResolution(MCP9808_SLOWEST);
 }
 
-float readTemp() {
-  return tempSensor.getTemperature();
+float tempSensor::read() {
+  return device.getTemperature();
 }
