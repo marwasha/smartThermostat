@@ -6,7 +6,6 @@ tempSensor MCP = tempSensor(0);
 
 void setup() {
   displaySetup();
-
 }
 
 void loop() {

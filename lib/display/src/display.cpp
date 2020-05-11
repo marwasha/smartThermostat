@@ -4,7 +4,7 @@ LiquidCrystal lcd(D7, D6, D5, D4, D3, D2);
 
 void displaySetup() {
   lcd.begin(16,2);
-  lcd.print("Welcome");
+  lcd.print("Welcomev2");
 }
 
 void displayTemp(float temp) {

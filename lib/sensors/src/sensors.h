@@ -1,4 +1,5 @@
 //NEED TO SET UP PROJECTED MCP9808 SENSOR CLASS WITHOUT BREAKING ABSTRACTION
+#include "MCP9808.h"
 
 class sensor {
   public:
@@ -6,11 +7,11 @@ class sensor {
 };
 
 class tempSensor: public sensor {
-  protected:
-    MCP9808 device;
-
   public:
     tempSensor(uint8_t offset);
 
     float read();
+
+  protected:
+    MCP9808 device;
 };
