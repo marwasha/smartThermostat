@@ -9,3 +9,13 @@ tempSensor::tempSensor(uint8_t offset) {
 float tempSensor::read() {
   return device.getTemperature();
 }
+
+unitStatus::unitStatus(char unitType, int pin) {
+  type = unitType;
+  inPin = pin;
+  pinMode(pin, INPUT);
+}
+
+bool unitStatus::read() {
+  return !digitalRead(inPin);
+}

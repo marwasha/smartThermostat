@@ -15,3 +15,12 @@ class tempSensor: public sensor {
   protected:
     MCP9808 device;
 };
+
+class unitStatus: public sensor {
+  public:
+    char type;
+    unitStatus(char unitType, int pin);
+    bool read();
+  private:
+    int inPin;
+};
