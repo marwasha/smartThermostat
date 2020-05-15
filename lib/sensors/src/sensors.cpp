@@ -5,7 +5,7 @@ tempSensor::tempSensor(uint8_t offset, char unitType) {
   device.begin();
   device.setResolution(MCP9808_SLOWEST);
   unit = unitType;
-  if (unit != 'F' || unit != 'C') {
+  if (!(unit != 'F' || unit != 'C')) {
     unit = 'C';
   };
 }
