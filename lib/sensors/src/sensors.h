@@ -8,12 +8,13 @@ class sensor {
 
 class tempSensor: public sensor {
   public:
-    tempSensor(uint8_t offset);
+    tempSensor(uint8_t offset, char unitType);
 
     float read();
 
-  protected:
+  private:
     MCP9808 device;
+    char unit;
 };
 
 class unitStatus: public sensor {

@@ -4,7 +4,7 @@
 float temp;
 bool heaterStatus;
 
-tempSensor MCP = tempSensor(0);
+tempSensor MCP = tempSensor(0, 'F');
 unitStatus heater = unitStatus('h', A0);
 
 void setup() {
@@ -12,7 +12,7 @@ void setup() {
 }
 
 void loop() {
-  temp = MCP.read()*1.8 + 32; // Need to calibrate or replace??
+  temp = MCP.read(); // Need to calibrate or replace??
   displayTemp(temp);
   displayStatus(heater.type, heater.read());
   delay(300);
