@@ -12,8 +12,8 @@ void setup() {
 }
 
 void loop() {
-  temp = MCP.read()*1.8 + 32;
+  temp = MCP.read()*1.8 + 32; // Need to calibrate or replace??
   displayTemp(temp);
   displayStatus(heater.type, heater.read());
-  delay(250);
+  delay(300);
 }

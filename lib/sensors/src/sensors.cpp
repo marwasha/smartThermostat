@@ -17,5 +17,9 @@ unitStatus::unitStatus(char unitType, int pin) {
 }
 
 bool unitStatus::read() {
-  return !digitalRead(inPin);
+  if (analogRead(inPin) > 3460) {
+    return false;
+  } else {
+    return true;
+  };
 }
