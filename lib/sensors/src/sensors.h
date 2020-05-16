@@ -1,6 +1,8 @@
 //NEED TO SET UP PROJECTED MCP9808 SENSOR CLASS WITHOUT BREAKING ABSTRACTION
 #include "MCP9808.h"
 
+#define tempARRAYSIZE 30
+
 class sensor {
   public:
     float read();
@@ -14,6 +16,9 @@ class tempSensor: public sensor {
 
   private:
     MCP9808 device;
+    float temp[tempARRAYSIZE];
+    float tempAverage;
+    int index;
     char unit;
 };
 
