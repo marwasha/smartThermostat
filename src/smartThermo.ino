@@ -4,7 +4,7 @@
 
 float temp;
 bool heaterStatus;
-
+unsigned long lastTime;
 
 tempSensor MCP = tempSensor(0, 'F');
 unitStatus heater = unitStatus('h', A0);
