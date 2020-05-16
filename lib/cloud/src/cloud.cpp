@@ -1,24 +1,14 @@
 #include "cloud.h"
 #include "Particle.h"
-/*
-void requestOutsideTemp(void) {
-  Particle.publish("outsideTemp", "48105,us", PRIVATE);
+
+OWMWH::OWMWH() {}
+
+void OWMWH::setup() {
+  Particle.subscribe("hook-response/outsideTemp", &OWMWH::subHand, this, MY_DEVICES);
+  requestOT();
 }
 
-void pullTempOutSetup(void) {
-  Particle.subscribe("hook-response/outsideTemp", pullTempOut, MY_DEVICES);
-}
-
-void pullTempOut(const char *event, const char *data) {
-  outsideTemp = atof(data);
-}
-*/
-
-OWMWH::OWMWH() {
-  Particle.subscribe("hook-response/outsideTemp", OWMWH::readOT, MY_DEVICES);
-}
-
-void OWMWH::readOT(const char *event, const char *data) {
+void OWMWH::subHand(const char *event, const char *data) {
   outsideTemp = atof(data);
 }
 
@@ -31,7 +21,7 @@ float OWMWH::getOutsideTemp() {
   return outsideTemp;
 }
 
-void pushTemp(float temp) {
-  String Tempurature = String(temp);
-  Particle.publish("Tempurature", Tempurature, PRIVATE);
+void pushTemps(float temp, float tempOut) {
+  String data = String::format("{\"temp\":%.2f, \"tempOut\":%.2f}",temp, tempOut);
+  Particle.publish("Tempurature", data, PRIVATE);
 }

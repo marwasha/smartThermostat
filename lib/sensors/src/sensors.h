@@ -9,7 +9,7 @@ class sensor {
 class tempSensor: public sensor {
   public:
     tempSensor(uint8_t offset, char unitType);
-
+    void setup();
     float read();
 
   private:

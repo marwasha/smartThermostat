@@ -4,13 +4,12 @@ LiquidCrystal lcd(D7, D6, D5, D4, D3, D2);
 
 void displaySetup() {
   lcd.begin(16,2);
-  lcd.print("MMMA's Temp Coll");
 }
 
-void displayTemp(float temp) {
-  lcd.setCursor(0, 1);
+void displayTemp(float temp, int row, int col) {
+  lcd.setCursor(col, row);
   lcd.print("T=");
-  lcd.setCursor(2, 1);
+  lcd.setCursor(col + 2, row);
   lcd.print(temp);
 }
 

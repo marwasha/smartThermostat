@@ -1,20 +1,13 @@
-//float outsideTemp = 0;
-/*
-void requestOutsideTemp(void);
-void pullTempOutSetup(void);
-void pullTempOut(const char *event, const char *data);
-*/
-
-
 class OWMWH {
   public:
     OWMWH();
     float getOutsideTemp();
+    void setup();
 
   private:
     float outsideTemp;
     void requestOT();
-    void readOT(const char *event, const char *data);
+    void subHand(const char *event, const char *data);
 };
 
-void pushTemp(float temp);
+void pushTemps(float temp, float tempOut);
