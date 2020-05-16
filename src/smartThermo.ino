@@ -4,7 +4,7 @@
 
 float temp;
 bool heaterStatus;
-unsigned long lastTime = 0;
+
 
 tempSensor MCP = tempSensor(0, 'F');
 unitStatus heater = unitStatus('h', A0);
@@ -18,8 +18,8 @@ void loop() {
   displayTemp(temp);
 
   unsigned long nowTime = millis();
-  if ((nowTime - lastTime) >= 10*1000) {
-    lastTime = now;
+  if ((nowTime - lastTime) >= 30*1000) {
+    lastTime = nowTime;
     pushTemp(temp);
   }
 
