@@ -7,18 +7,18 @@ float tempOut;
 bool heaterStatus;
 unsigned long lastTime;
 
-tempSensor MCP = tempSensor(0, 'C');
-unitStatus heater = unitStatus('h', A0);
+tempSensor tempurature = tempSensor(A2, 'C');
+unitStatus heater = unitStatus('h', A1);
 OWMWH      currentWeather = OWMWH();
 
 void setup() {
   displaySetup();
-  MCP.setup();
+  tempurature.setup();
   currentWeather.setup();
 }
 
 void loop() {
-  temp = MCP.read(); // Need to calibrate or replace??
+  temp = tempurature.readFiltered(); // Need to calibrate or replace??
   displayTemp(temp, 1, 0);
 
   unsigned long nowTime = millis();
@@ -30,5 +30,5 @@ void loop() {
   }
 
   displayStatus(heater.type, heater.read());
-  delay(300);
+  delay(250);
 }

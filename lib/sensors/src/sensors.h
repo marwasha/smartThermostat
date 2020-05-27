@@ -1,25 +1,27 @@
 //NEED TO SET UP PROJECTED MCP9808 SENSOR CLASS WITHOUT BREAKING ABSTRACTION
-#include "MCP9808.h"
 
-class sensor {
-  public:
-    float read();
-};
+#define thermA 0.001129148
+#define thermB 0.000234125
+#define thermC 0.0000000876741
+#define thermVdiv 10000.0
+#define thermADC 4096.0
 
-class tempSensor: public sensor {
+class tempSensor {
   public:
-    tempSensor(uint8_t offset, char unitType);
+    tempSensor(int pinSet, char unitType);
     void setup();
-    float read();
+    float readFiltered();
 
   private:
-    MCP9808 device;
-    int filterRate = 30;
+    float read();
+    int filterRate = 120;
     float temp;
+    float tempFiltered;
     char unit;
+    int pin;
 };
 
-class unitStatus: public sensor {
+class unitStatus {
   public:
     char type;
     unitStatus(char unitType, int pin);
