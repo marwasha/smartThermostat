@@ -7,7 +7,7 @@ float tempOut;
 bool heaterStatus;
 unsigned long lastTime;
 
-tempSensor tempurature = tempSensor(A2, 'C', 10);
+tempSensor tempurature = tempSensor(A2, 'C', 100);
 unitStatus heater = unitStatus('h', A1);
 OWMWH      currentWeather = OWMWH();
 
