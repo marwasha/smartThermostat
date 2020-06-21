@@ -6,35 +6,31 @@ OWMWH::OWMWH() {}
 
 void OWMWH::setup() {
   Particle.subscribe("hook-response/outsideData", &OWMWH::subHand, this, MY_DEVICES);
-  requestOT();
+  requestOutsideData();
 }
 
 void OWMWH::subHand(const char *event, const char *data) {
-  outsideDataCur = parseOutsideData(data);
-}
-
-outsideData OWMWH::parseOutsideData(const char *data) {
   const size_t capacity = JSON_OBJECT_SIZE(6) + 110;
   DynamicJsonDocument doc(capacity);
-  deserializeJson(doc, json);
-  outsideDataCur.temp = atof(doc["temp"]); // "28.06"
-  outsideDataCur.windSpeed = atof(doc["windSpeed"]); // "0.75"
-  outsideDataCur.cloudCov = atoi(doc["cloudCov"]); // "40"
-  outsideDataCur.curTime = atoi(doc["curTime"]); // "1592582616"
-  outsideDataCur.sunrise = atoi(doc["sunrise"]); // "1592560491"
-  outsideDataCur.sunset = atoi(doc["sunset"]); // "1592615611"
+  deserializeJson(doc, data);
+  outsideDataCur.temp = atof(doc["temp"]);
+  outsideDataCur.windSpeed = atof(doc["windSpeed"]);
+  outsideDataCur.cloudCov = atof(doc["cloudCov"])/100;
+  float curTime = atof(doc["curTime"]);
+  float sunrise = atof(doc["sunrise"]);
+  float sunset = atof(doc["sunset"]);
+  outsideDataCur.sun = (curTime - sunrise)/(sunset - sunrise);
+  outsideDataCur.sun = (outsideDataCur.sun < 0) ? 0 : outsideDataCur.sun;
+  outsideDataCur.sun = (outsideDataCur.sun > 1) ? 1 : outsideDataCur.sun;
+  return;
 }
 
-void OWMWH::requestOT() {
-  Particle.publish("outsideTemp", "", PRIVATE);
+void OWMWH::requestOutsideData() {
+    Particle.publish("outsideData", "", PRIVATE);
 }
 
-float OWMWH::getOutsideData() {
-  requestOT();
-  return outsideTemp;
-}
-
-void pushTemps(float temp, float tempOut) {
-  String data = String::format("{\"temp\":%.2f, \"tempOut\":%.2f}",temp, tempOut);
-  Particle.publish("Tempurature", data, PRIVATE);
+void pushData(float temp, float ac, outsideData dataOut) {
+  String data = String::format("{\"temp\":%.2f, \"tempOut\":%.2f, \"wind\":%.2f, \"cloud\":%.2f, \"sun\":%.2f, \"AC\":%.2f}",
+                                temp, dataOut.temp, dataOut.windSpeed, dataOut.cloudCov, dataOut.sun, ac);
+  Particle.publish("houseData", data, PRIVATE);
 }
