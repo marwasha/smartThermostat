@@ -1,13 +1,19 @@
+struct outsideData {
+  float temp;
+  float windSpeed;
+  float cloudCov;
+  float sun;
+};
+
 class OWMWH {
   public:
     OWMWH();
-    float getOutsideTemp();
+    void requestOutsideData();
     void setup();
+    outsideData outsideDataCur;
 
   private:
-    float outsideTemp;
-    void requestOT();
     void subHand(const char *event, const char *data);
 };
 
-void pushTemps(float temp, float tempOut);
+void pushData(float temp, float ac, outsideData dataOut);
