@@ -13,15 +13,18 @@ void displayTemp(float temp, int row, int col) {
   lcd.print(temp);
 }
 
-void displayStatus(char type, bool status) {
-  lcd.setCursor(11, 1);
+void displayStatus(char type, float status) {
+  lcd.setCursor(10, 1);
   lcd.print(type);
-  lcd.setCursor(12, 1);
+  lcd.setCursor(11, 1);
   lcd.print("=");
-  lcd.setCursor(13, 1);
+  lcd.setCursor(12, 1);
+  lcd.print(status);
+  /*
   if (status) {
     lcd.print("on ");
   } else {
     lcd.print("off");
   };
+  */
 }
