@@ -16,7 +16,6 @@ class tempSensor {
     float read();
     int filterRate;
     float temp;
-    float tempFiltered;
     char unit;
     int pin;
 };
@@ -24,8 +23,13 @@ class tempSensor {
 class unitStatus {
   public:
     char type;
-    unitStatus(char unitType, int pin);
-    bool read();
+    unitStatus(int pinSet, char unitType, int filterRateSet);
+    float readFiltered();
+    void setup();
+
   private:
-    int inPin;
+    int pin;
+    bool read();
+    int filterRate;
+    float status;
 };

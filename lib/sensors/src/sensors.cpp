@@ -35,14 +35,24 @@ float tempSensor::readFiltered() {
   return temp;
 }
 
-unitStatus::unitStatus(char unitType, int pin) {
+unitStatus::unitStatus(int pinSet, char unitType, int filterRateSet) {
   type = unitType;
-  inPin = pin;
+  pin = pinSet;
+  filterRate = filterRateSet;
+}
+
+void unitStatus::setup() {
   pinMode(pin, INPUT);
+  status = read();
+}
+
+float unitStatus::readFiltered() {
+  status = status + (read() - status)/filterRate;
+  return status;
 }
 
 bool unitStatus::read() {
-  if (analogRead(inPin) > 3460) {
+  if (analogRead(pin) > 4098/2) {
     return false;
   } else {
     return true;
